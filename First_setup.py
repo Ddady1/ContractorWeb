@@ -1,7 +1,7 @@
 from nicegui import ui, app
 
-app.native.window_args['resizable'] = False
-app.native.start_args['debug'] = True
+#app.native.window_args['resizable'] = False
+#app.native.start_args['debug'] = True
 with ui.stepper().props('vertical').classes('w-full items-center') as stepper:
     with ui.step('Choose DB'):
         db_radio = ui.radio(['MySQL', 'MongoDB', 'Excel']).props('Inline')
