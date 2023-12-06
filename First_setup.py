@@ -1,12 +1,20 @@
 from nicegui import ui, app
 
+def checkdb(con):
+    print(con)
+    if con == 'MySQL':
+        return stepper.next
+    else:
+        return
+
 #app.native.window_args['resizable'] = False
 #app.native.start_args['debug'] = True
-with ui.stepper().props('vertical').classes('w-full items-center') as stepper:
+with ui.stepper().props('horizontal').classes('w-full items-center') as stepper:
     with ui.step('Choose DB'):
-        db_radio = ui.radio(['MySQL', 'MongoDB', 'Excel']).props('Inline')
+        db_radio = ui.radio(['MySQL', 'MongoDB-Soon', 'Excel-Soon'], value='MySQL').props('Inline')
         with ui.stepper_navigation():
-            ui.button('Next', on_click=stepper.next)
+            print(db_radio.value)
+            ui.button('Next', on_click=checkdb(db_radio.value))
     with ui.step('Ingredients'):
         ui.label('Mix the ingredients')
         with ui.stepper_navigation():
