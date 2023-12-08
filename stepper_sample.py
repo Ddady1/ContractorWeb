@@ -7,8 +7,8 @@ def checkdb(con):
     '''else:
         return'''
 
-#app.native.window_args['resizable'] = False
-#app.native.start_args['debug'] = True
+app.native.window_args['resizable'] = False
+app.native.start_args['debug'] = True
 with ui.stepper().props('horizontal').classes('w-full items-center') as stepper:
     with ui.step('Choose DB'):
         #db_radio = ui.radio(['MySQL', 'MongoDB-Soon', 'Excel-Soon'], value='MySQL').props('Inline')
