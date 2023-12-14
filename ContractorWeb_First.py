@@ -16,8 +16,10 @@ def card_first(crd_1):
             all your contracts information and will notify you when it\'s time to renew it.\n
             Please be advise that you need some pre-installation depends on the DB you\'ll choose.'''
         ui.label(contract_first_info).style(f'color: {text_color};font-size: 20px;font-family: Verdana, Sans-serif')
-        ui.button('Next', on_click=lambda: (crd_1.delete()))
-
+        #with ui.button('Next', on_click=lambda: (crd_1.delete())):
+        b = ui.button('Next')
+        with b.on('click'):
+            crd_1.delete()
 
 
 
@@ -38,7 +40,7 @@ def card_third():
 
 
 card_first(crd)
-card_second(crd)
+#card_second(crd)
 
 
 ui.run(native=True, window_size=(800, 600), title='ContractorWEB', fullscreen=False)
