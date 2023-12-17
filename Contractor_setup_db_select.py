@@ -1,7 +1,17 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import *
 import ttkbootstrap as ttkb
+from ttkbootstrap.dialogs import Messagebox
 from ttkbootstrap.constants import *
+
+
+def exit_app():
+    result = Messagebox.show_question('Are you sure you want to cancel and exit the setup?', 'Cancel setup',
+                                      buttons=['No:primary', 'Yes:danger'])
+    if result == 'Yes':
+        root.destroy()
+
+
 
 root = ttkb.Window(themename='sandstone')
 root.title('Contractor Wizard')
@@ -22,17 +32,19 @@ main_frame_lbl.place(x=10, y=80, width=580)
 db_info_lbl.pack(side=LEFT, padx=10)'''
 
 db_list = ['SQLite', 'MySQL', 'MongoDB', 'Excel File']
-db_selection_var = ttkb.StringVar
+db_selection_var = StringVar()
 i = 200
 for db in db_list:
     ttkb.Radiobutton(main_frame_lbl, bootstyle='primary', variable=db_selection_var,
                      text=db, value=db).pack(pady=20, padx=20, fill=BOTH)
+#sqlite_rb = ttk.Radiobutton(main_frame_lbl, bootstyle='primary', text='SQLite', value='d').pack(padx=20, pady=20, fill=BOTH)
+#mysql_rb = ttk.Radiobutton(main_frame_lbl, bootstyle='primary', text='MySQL', value='s').pack(padx=20, pady=20, fill=BOTH)
 
-cancel_btn = ttkb.Button(root, text='Cancel')
-cancel_btn.place(x=10, y=400, width=80)
-next_btn = ttkb.Button(root, text='Previous')
-next_btn.place(x=410, y=400, width=80)
-next_btn = ttkb.Button(root, text='Next')
-next_btn.place(x=510, y=400, width=80)
+db_cancel_btn = ttkb.Button(root, text='Cancel', command=exit_app)
+db_cancel_btn.place(x=10, y=400, width=80)
+db_prev_btn = ttkb.Button(root, text='Previous')
+db_prev_btn.place(x=410, y=400, width=80)
+db_next_btn = ttkb.Button(root, text='Next')
+db_next_btn.place(x=510, y=400, width=80)
 
 root.mainloop()
