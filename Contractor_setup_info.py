@@ -1,7 +1,16 @@
 import tkinter as tk
 from tkinter import ttk
+from ttkbootstrap.dialogs import Messagebox
 import ttkbootstrap as ttkb
 from ttkbootstrap.constants import *
+
+
+def exit_app():
+    result = Messagebox.show_question('Are you sure you want to cancel and exit the setup?', 'Cancel setup',
+                                      buttons=['No:primary', 'Yes:danger'])
+    if result == 'Yes':
+        root.destroy()
+
 
 root = ttkb.Window(themename='sandstone')
 root.title('Contractor Wizard')
@@ -30,7 +39,7 @@ footerbar.place(x=0, y=350)
 footer_lbl = ttkb.Label(footerbar, text='--------------------------------------------------------------------------', bootstyle='primary inverse', font=('Helvetica', 18))
 footer_lbl.pack()'''
 
-cancel_btn = ttkb.Button(root, text='Cancel')
+cancel_btn = ttkb.Button(root, text='Cancel', command=exit_app)
 cancel_btn.place(x=400, y=400, width=80)
 
 next_btn = ttkb.Button(root, text='Next')
