@@ -16,17 +16,23 @@ wizard_db_lbl.pack(side=TOP, fill=X, padx=10, pady=10)
 main_frame_lbl = ttkb.LabelFrame(root, text='Select Database', bootstyle='primary')
 main_frame_lbl.place(x=10, y=80, width=580)
 
-db_info_lbl = ttkb.Label(main_frame_lbl, text='Contractor can work with various Databases.\n\n'
+'''db_info_lbl = ttkb.Label(main_frame_lbl, text='Contractor can work with various Databases.\n\n'
                                            'Please choose your favourite Database:\n'
                                            , font=('Helvetica', 14), bootstyle='primary')
-db_info_lbl.pack(side=LEFT, padx=10)
+db_info_lbl.pack(side=LEFT, padx=10)'''
 
 db_list = ['SQLite', 'MySQL', 'MongoDB', 'Excel File']
 db_selection_var = ttkb.StringVar
 i = 200
 for db in db_list:
-    ttkb.Radiobutton(root, bootstyle='success', variable=db_selection_var,
-                     text=db, value=db).place(x=20, y=i+20)
-    i += 45
+    ttkb.Radiobutton(main_frame_lbl, bootstyle='primary', variable=db_selection_var,
+                     text=db, value=db).pack(pady=20, padx=20, fill=BOTH)
+
+cancel_btn = ttkb.Button(root, text='Cancel')
+cancel_btn.place(x=10, y=400, width=80)
+next_btn = ttkb.Button(root, text='Previous')
+next_btn.place(x=410, y=400, width=80)
+next_btn = ttkb.Button(root, text='Next')
+next_btn.place(x=510, y=400, width=80)
 
 root.mainloop()
