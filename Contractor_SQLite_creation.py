@@ -1,9 +1,7 @@
-import tkinter as tk
-from tkinter import ttk
 from ttkbootstrap.dialogs import Messagebox
 import ttkbootstrap as ttkb
 from ttkbootstrap.constants import *
-import time
+
 
 def exit_app():
     result = Messagebox.show_question('Are you sure you want to cancel and exit the setup?', 'Cancel setup',
@@ -12,8 +10,24 @@ def exit_app():
         root.destroy()
 
 
-def auto():
-    pass
+def auto_db_gauge():
+    global process
+    process += 2
+    db_build_gauge['value'] = process
+    if db_build_gauge['value'] >= 100:
+        db_build_gauge['mask'] = 'Database was created successfully'
+        return
+    root.after(100, auto_db_gauge)
+
+
+def auto_tb_gauge():
+    global process1
+    process1 += 2
+    tables['value'] = process1
+    if tables['value'] >= 100:
+        tables['mask'] = 'Tables were created successfully'
+        return
+    root.after(100, auto_tb_gauge)
 
 
 root = ttkb.Window(themename='sandstone')
@@ -31,15 +45,17 @@ main_lite_lbl.pack(side=TOP, fill=X, padx=10, pady=10)
 lite_frame_lbl = ttkb.LabelFrame(root, text='SQLite database setup', bootstyle='primary')
 lite_frame_lbl.place(x=10, y=80, width=580)
 
-db_build_progress = ttkb.Progressbar(lite_frame_lbl, bootstyle='primary striped', maximum=100, value=0)
-db_build_progress.pack(pady=10, padx=10, fill=X)
-auto()
 
+db_build_gauge = ttkb.Floodgauge(lite_frame_lbl, bootstyle='', maximum=100,
+                                 mask='Building database: {}%', font=('Helvetica', 18))
+db_build_gauge.pack(pady=20, fill=X, padx=20)
 
-
-
-
-
+tables = ttkb.Floodgauge(lite_frame_lbl, maximum=100, mask='Building tables: {}%', font=('Helvetica', 18))
+tables.pack(pady=20, fill=X, padx=20)
+process = 0
+auto_db_gauge()
+process1 = 0
+auto_tb_gauge()
 
 lite_cancel_btn = ttkb.Button(root, text='Cancel', command=exit_app)
 lite_cancel_btn.place(x=10, y=400, width=80)
@@ -47,6 +63,5 @@ lite_prev_btn = ttkb.Button(root, text='Previous')
 lite_prev_btn.place(x=410, y=400, width=80)
 lite_next_btn = ttkb.Button(root, text='Finish')
 lite_next_btn.place(x=510, y=400, width=80)
-
 
 root.mainloop()
