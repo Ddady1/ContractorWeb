@@ -42,7 +42,7 @@ db_server_ent.bind("<Button-1>", lambda e: db_server_ent.delete(0, ttkb.END))
 
 db_password_ent = ttkb.Entry(mongodb_details_frame_lbl, font=('Helvetica', 14), textvariable=password, width=35)
 db_password_ent.grid(column=1, row=1, padx=5, pady=20, sticky=W)
-db_password_ent.insert(0, 'Please enter DB password')
+db_password_ent.insert(0, 'Please enter the DB password')
 db_password_ent.bind("<Button-1>", lambda e: db_password_ent.delete(0, ttkb.END))
 
 
