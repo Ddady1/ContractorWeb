@@ -16,6 +16,7 @@ def auto_db_gauge():
     db_build_gauge['value'] = process
     if db_build_gauge['value'] >= 100:
         db_build_gauge['mask'] = 'Database was created successfully'
+        auto_tb_gauge()
         return
     root.after(100, auto_db_gauge)
 
@@ -36,6 +37,7 @@ def auto_db_con_gauge():
     db_connect_gauge['value'] = process2
     if db_connect_gauge['value'] >= 100:
         db_connect_gauge['mask'] = 'Connection was established successfully'
+        auto_db_gauge()
         return
     root.after(100, auto_db_con_gauge)
 
@@ -66,9 +68,9 @@ tables.pack(pady=20, fill=X, padx=20)
 process2 = 0
 auto_db_con_gauge()
 process = 0
-auto_db_gauge()
+#auto_db_gauge()
 process1 = 0
-auto_tb_gauge()
+#auto_tb_gauge()
 
 
 lite_cancel_btn = ttkb.Button(root, text='Cancel', command=exit_app)
