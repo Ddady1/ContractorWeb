@@ -29,8 +29,31 @@ mysql_main_lbl.pack(side=TOP, fill=X, padx=10, pady=10)
 mysql_details_frame_lbl = ttkb.LabelFrame(root, text='Enter details', bootstyle='primary')
 mysql_details_frame_lbl.place(x=10, y=80, width=580)
 
-db_server_ent = ttkb.Entry(mysql_details_frame_lbl, font=('Helvetica', 14), textvariable=hostname)
-db_server_ent.pack(padx=20, pady=20)
+db_server_lbl = ttkb.Label(mysql_details_frame_lbl, text='Server address:', font=('Helvetica', 14), bootstyle='primary')
+db_server_lbl.grid(column=0, row=0, padx=10, pady=20, sticky=W)
+
+db_username_lbl = ttkb.Label(mysql_details_frame_lbl, text='DB user name:', font=('Helvetica', 14), bootstyle='primary')
+db_username_lbl.grid(column=0, row=1, padx=10, pady=20, sticky=W)
+
+db_password_lbl = ttkb.Label(mysql_details_frame_lbl, text='DB password:', font=('Helvetica', 14), bootstyle='primary')
+db_password_lbl.grid(column=0, row=2, padx=10, pady=20, sticky=W)
+
+db_server_ent = ttkb.Entry(mysql_details_frame_lbl, font=('Helvetica', 14), textvariable=hostname, width=35)
+db_server_ent.grid(column=1, row=0, padx=5, pady=20, sticky=W)
+db_server_ent.insert(0, r' Example: localhost, 192.168.1.1')
+db_server_ent.bind("<Button-1>", lambda e: db_server_ent.delete(0, ttkb.END))
+
+db_username_ent = ttkb.Entry(mysql_details_frame_lbl, font=('Helvetica', 14), textvariable=username, width=35)
+db_username_ent.grid(column=1, row=1, padx=5, pady=20, sticky=W)
+db_username_ent.insert(0, 'Please enter DB username')
+db_username_ent.bind("<Button-1>", lambda e: db_username_ent.delete(0, ttkb.END))
+
+db_password_ent = ttkb.Entry(mysql_details_frame_lbl, font=('Helvetica', 14), textvariable=password, width=35)
+db_password_ent.grid(column=1, row=2, padx=5, pady=20, sticky=W)
+db_password_ent.insert(0, 'Please enter DB password')
+db_password_ent.bind("<Button-1>", lambda e: db_password_ent.delete(0, ttkb.END))
+
+
 
 
 db_cancel_btn = ttkb.Button(root, text='Cancel', command=exit_app)
