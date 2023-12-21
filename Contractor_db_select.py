@@ -16,7 +16,6 @@ def selected_database(selected):
 
     selected_db = selected
     print(selected_db)
-    os.startfile('Contractor_SQLite_creation.py')
 
 
 
