@@ -3,6 +3,7 @@ from tkinter import ttk
 from ttkbootstrap.dialogs import Messagebox
 import ttkbootstrap as ttkb
 from ttkbootstrap.constants import *
+from ttkbootstrap import Toplevel
 
 
 def exit_app():
@@ -13,9 +14,11 @@ def exit_app():
 
 
 root = ttkb.Window(themename='sandstone')
+#root = Toplevel()
 root.title('Contractor Wizard')
 root.geometry('600x450+450+250')
 root.resizable(False, False)
+
 
 headerbar = ttkb.Frame(style='primary.TFrame')
 headerbar.pack(fill=X, pady=1, side=TOP)
