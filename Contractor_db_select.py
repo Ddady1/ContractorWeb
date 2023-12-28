@@ -3,7 +3,7 @@ from tkinter import *
 import ttkbootstrap as ttkb
 from ttkbootstrap.dialogs import Messagebox
 from ttkbootstrap.constants import *
-import os
+
 
 
 def exit_app():
@@ -16,7 +16,6 @@ def selected_database(selected):
 
     selected_db = selected
     print(selected_db)
-
 
 
 root = ttkb.Window(themename='sandstone')
