@@ -20,21 +20,21 @@ db_sel_tab = ttkb.Frame(setup_notebook)
 info_tab_lbl = ttkb.Label(info_tab, text='Welcome to Contractor setup', bootstyle='primary inverse', font=('Helvetica', 18))
 info_tab_lbl.pack(side=TOP, fill=X, padx=10, pady=10)
 
-#main_frame_lbl = ttkb.Frame(info_tab, bootstyle='primary')
-#main_frame_lbl.pack(fill=BOTH)
+main_frame_lbl = ttkb.LabelFrame(info_tab, bootstyle='primary', text='about')
+main_frame_lbl.pack(pady=20)
 
-info_lbl = ttkb.Label(info_tab, text='Contractor app was design to help you keep track of all your\n'
+info_lbl = ttkb.Label(main_frame_lbl, text='Contractor app was design to help you keep track of all your\n'
                                            'contracts and to manage that in one place.\n\n'
                                            'Contractor also will remind you when your contracts are about to\n'
                                            'be expired.\n\n'
                                            'Contractor is a Python base application and can work with various\n'
                                            'of databases such ad SQLite, MySQL, MongoDB and more...\n',
-                      font=('Helvetica', 14), bootstyle='primary')
-info_lbl.pack()
-lbl = ttkb.Label(info_tab, bootstyle='primary inverse')
-lbl.pack(fill=X)
+                      font=('Helvetica', 14), bootstyle='primary', justify=LEFT, anchor=N, padding=50)
+info_lbl.pack(fill=X)
+#lbl = ttkb.Label(info_tab, bootstyle='primary inverse')
+#lbl.pack(fill=X, pady=20)
 
-cancel_btn = ttkb.Button(info_tab, text='Cancel', bootstyle='primary outline')
+cancel_btn = ttkb.Button(info_tab, text='Cancel', bootstyle='primary')
 cancel_btn.pack()
 
 setup_notebook.add(info_tab, text='Info')
