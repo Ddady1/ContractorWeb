@@ -1,4 +1,3 @@
-import Contractor_db_select
 
 from ttkbootstrap.dialogs import Messagebox
 import ttkbootstrap as ttkb
