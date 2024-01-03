@@ -10,8 +10,17 @@ def main_dis():
     main_frame.destroy()
 
 
-def setup_next(frames_list):
+def setup_next():
     global count
+
+    if not count > len(frames) - 2:
+        frames[0]()
+
+
+    count += 1
+    frame = frames[count]
+    frame.pack()
+
 
 
 
@@ -65,6 +74,9 @@ def db_select_frame():
 
 def sqlite_frame():
     pass
+    sqlite_set_lf = ttkb.Label(main_frame, text='Creating SQlite database', bootstyle='primary')
+
+    sqlite_set_lf.pack()
 
 
 root = ttkb.Window(themename='sandstone')
@@ -74,7 +86,10 @@ root.resizable(False, False)
 
 main_frame = ttkb.Frame(root)
 
-frames = (info_frame, db_select_frame, sqlite_frame)
+setup_info_lf = tkinter.ttk.Labelframe
+db_select_lf = tkinter.ttk.Labelframe
+sqlite_set_lf = tkinter.ttk.Labelframe
+frames = [setup_info_lf, db_select_lf, sqlite_set_lf]
 count = 0
 
 
@@ -101,10 +116,10 @@ bottom_frame = ttkb.Frame(root)
 cancel_btn = ttkb.Button(bottom_frame, text='Cancel', width=8, command=main_dis)
 cancel_btn.pack(side=ttkb.LEFT, padx=20, pady=5)
 
-next_btn = ttkb.Button(bottom_frame, text='Next', width=8, command=lambda: setup_next(frames))
+next_btn = ttkb.Button(bottom_frame, text='Next', width=8, command=setup_next)
 next_btn.pack(side=ttkb.RIGHT, padx=20, pady=5)
 
-prev_btn = ttkb.Button(bottom_frame, text='Previous', width=8, command=setup_prev())
+prev_btn = ttkb.Button(bottom_frame, text='Previous', width=8, command=setup_next)
 prev_btn.pack(side=ttkb.RIGHT, padx=10, pady=5)
 
 
