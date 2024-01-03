@@ -14,11 +14,11 @@ def setup_next():
     global count
 
     if not count > len(frames) - 2:
-        frames[0]()
-
+        frames[count]()
 
     count += 1
     frame = frames[count]
+    print(frame.winfo_name())
     frame.pack()
 
 
