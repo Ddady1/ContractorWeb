@@ -9,36 +9,48 @@ from ttkbootstrap.constants import *
 def main_dis():
     main_frame.destroy()
 
+def exit_app():
+    result = Messagebox.show_question('Are you sure you want to cancel and exit the setup?', 'Cancel setup',
+                                      buttons=['No:primary', 'Yes:danger'])
+    if result == 'Yes':
+        root.destroy()
+
+
 
 def setup_next():
     global count
 
     if not count > len(frames) - 2:
-        frames[count]()
+        for frame in frames:
+            frame.pack_forget()
 
-    count += 1
-    frame = frames[count]
-    print(frame.winfo_name())
-    frame.pack()
+        count += 1
+        if count == 2:
+            print(db_selection_var.get())
+        frame = frames[count]
+        frame.pack(pady=50, padx=20, fill=X)
 
-
-
-
-
-
-    pass
 
 
 
 
 
 def setup_prev():
-    pass
+    global count
+
+    if not count == 0:
+        for frame in frames:
+            frame.pack_forget()
+
+        count -= 1
+        frame = frames[count]
+        frame.pack(pady=50, padx=20, fill=X)
 
 
 
 
-def info_frame():
+
+'''def info_frame():
 
     setup_info_lf = ttkb.LabelFrame(main_frame, text='About', bootstyle='primary')
     setup_top_lbl = ttkb.Label(main_frame, text='  Welcome to Contractor setup', bootstyle='primary inverse',
@@ -76,7 +88,7 @@ def sqlite_frame():
     pass
     sqlite_set_lf = ttkb.Label(main_frame, text='Creating SQlite database', bootstyle='primary')
 
-    sqlite_set_lf.pack()
+    sqlite_set_lf.pack()'''
 
 
 root = ttkb.Window(themename='sandstone')
@@ -91,9 +103,9 @@ main_frame = ttkb.Frame(root)
 # Frame 1
 
 setup_info_lf = ttkb.LabelFrame(main_frame, text='About', bootstyle='primary')
-setup_top_lbl = ttkb.Label(main_frame, text='  Welcome to Contractor setup', bootstyle='primary inverse',
+'''setup_top_lbl = ttkb.Label(main_frame, text='  Welcome to Contractor setup', bootstyle='primary inverse',
                                font=('Helvetica', 20))
-setup_top_lbl.pack(side=TOP, fill=X, padx=2, pady=1, ipady=10)
+setup_top_lbl.pack(side=TOP, fill=X, padx=2, pady=1, ipady=10)'''
 setup_info_lbl = ttkb.Label(setup_info_lf, text='Contractor app was design to help you keep track of all your\n'
                                                     'contracts and to manage that in one place.\n\n'
                                                     'Contractor also will remind you when your contracts are about to\n'
@@ -107,9 +119,9 @@ setup_info_lf.pack(pady=50)
 # Frame 2
 
 db_select_lf = ttkb.LabelFrame(main_frame, text='Select Database', bootstyle='primary')
-db_select_top_lbl = ttkb.Label(main_frame, text='  Choose your preferred Database', bootstyle='primary inverse',
+'''db_select_top_lbl = ttkb.Label(main_frame, text='  Choose your preferred Database', bootstyle='primary inverse',
                                font=('Helvetica', 20))
-db_select_top_lbl.pack(side=TOP, fill=X, padx=2, pady=1, ipady=10)
+db_select_top_lbl.pack(side=TOP, fill=X, padx=2, pady=1, ipady=10)'''
 db_list = ['SQLite', 'MySQL', 'MongoDB', 'Excel File']
 db_selection_var = StringVar()
 i = 200
@@ -125,17 +137,17 @@ main_frame.pack(pady=1, fill=BOTH, expand=True)
 
 
 frames = [setup_info_lf, db_select_lf, sqlite_set_lf]
-
+count = 0
 
 bottom_frame = ttkb.Frame(root)
 
-cancel_btn = ttkb.Button(bottom_frame, text='Cancel', width=8, command=main_dis)
+cancel_btn = ttkb.Button(bottom_frame, text='Cancel', width=8, command=exit_app)
 cancel_btn.pack(side=ttkb.LEFT, padx=20, pady=5)
 
 next_btn = ttkb.Button(bottom_frame, text='Next', width=8, command=setup_next)
 next_btn.pack(side=ttkb.RIGHT, padx=20, pady=5)
 
-prev_btn = ttkb.Button(bottom_frame, text='Previous', width=8, command=setup_next)
+prev_btn = ttkb.Button(bottom_frame, text='Previous', width=8, command=setup_prev)
 prev_btn.pack(side=ttkb.RIGHT, padx=10, pady=5)
 
 
