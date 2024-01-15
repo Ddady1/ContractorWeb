@@ -164,6 +164,9 @@ process = 0
 auto_db_gauge()
 process1 = 0
 
+
+# Frame 4
+
 main_frame.pack(pady=1, fill=BOTH, expand=True)
 
 
