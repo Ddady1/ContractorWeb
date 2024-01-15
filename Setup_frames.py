@@ -53,9 +53,19 @@ def auto_db_gauge():
     db_build_gauge['value'] = process
     if db_build_gauge['value'] >= 100:
         db_build_gauge['mask'] = 'Database was created successfully'
-        #auto_tb_gauge()
+        auto_tb_gauge()
         return
     root.after(100, auto_db_gauge)
+
+
+def auto_tb_gauge():
+    global process1
+    process1 += 2
+    tables['value'] = process1
+    if tables['value'] >= 100:
+        tables['mask'] = 'Tables were created successfully'
+        return
+    root.after(100, auto_tb_gauge)
 
 
 
@@ -151,7 +161,7 @@ db_build_gauge.pack(pady=20, fill=X, padx=20)
 tables = ttkb.Floodgauge(sqlite_set_lf, maximum=100, mask='Building tables: {}%', font=('Helvetica', 18))
 tables.pack(pady=20, fill=X, padx=20)
 process = 0
-#auto_db_gauge()
+auto_db_gauge()
 process1 = 0
 
 main_frame.pack(pady=1, fill=BOTH, expand=True)
