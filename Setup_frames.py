@@ -170,7 +170,8 @@ process1 = 0
 main_frame.pack(pady=1, fill=BOTH, expand=True)
 
 
-frames = [setup_info_lf, db_select_lf, sqlite_set_lf]
+#frames = [setup_info_lf, db_select_lf, sqlite_set_lf]
+frames = [setup_info_lf, db_select_lf]
 count = 0
 
 bottom_frame = ttkb.Frame(root)
