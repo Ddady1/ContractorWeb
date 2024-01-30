@@ -14,13 +14,26 @@ class ListFrame(ttk.Frame):
         self.list_height = self.item_number * item_height
 
         # canvas
-        self.canvas = tk.Canvas(self, background='red')
+        self.canvas = tk.Canvas(self, background='red', scrollregion=(0, 0, 500, self.list_height))
         self.canvas.pack(expand=True, fill='both')
 
         # display frame
         self.frame = ttk.Frame(self)
-        ttk.Label(self.frame, text='A label').pack()
-        self.canvas.create_window((0, 0), window=self.frame, anchor='nw')
+
+        for index, item in enumerate(self.text_data):
+            self.create_item(index, item)
+
+        self.canvas.create_window((0, 0), window=self.frame, anchor='nw', width=500, height=self.list_height)
+
+    def create_item(self, index, item):
+        frame = ttk.Frame(self.frame)
+
+        # grid layout
+        frame.rowconfigure(0, window=1)
+        frame.columnconfigure((0, 1, 2, 3, 4), weight=1, uniform='a')
+
+        # widgets
+        ttk.Label(frame, text=f'#{index}')
 
 # setup
 
