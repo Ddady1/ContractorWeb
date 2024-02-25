@@ -48,6 +48,7 @@ root.geometry('600x450+450+250')
 root.resizable(False, False)
 
 
+
 headerbar_lite = ttkb.Frame(style='primary.TFrame')
 headerbar_lite.pack(fill=X, pady=1, side=TOP)
 main_lite_lbl = ttkb.Label(headerbar_lite, text='MySQL database creation', bootstyle='primary inverse', font=('Helvetica', 18))

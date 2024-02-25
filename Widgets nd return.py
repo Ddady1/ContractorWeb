@@ -26,7 +26,7 @@ class Segment(ttk.Frame):
 window = ttk.Window(themename='sandstone')
 window.title('Widgets and return')
 window.geometry('400x600')
-
+window.minsize(400, 600)
 # widgets
 Segment(window, 'label', 'button', 'test')
 Segment(window, 'test', 'click', 'something')
