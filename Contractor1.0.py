@@ -6,7 +6,7 @@ from ttkbootstrap.constants import *
 def read_data():
     coldata = [
         {"text": "LicenseNumber", "stretch": False},
-        "CompanyName",
+        {'text': "CompanyName"},
         {"text": "UserCount", "stretch": False},
     ]
 
@@ -30,6 +30,7 @@ def read_data():
 window = ttk.Window(themename='sandstone')
 window.title('Contractor 1.0')
 window.geometry('1200x800+250+100')
+window.minsize(1200, 800)
 
 
 # Frames
