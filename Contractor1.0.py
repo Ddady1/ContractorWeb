@@ -4,6 +4,7 @@ from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.constants import *
 
 def read_data():
+
     coldata = [
         {"text": "LicenseNumber", "stretch": False},
         "CompanyName",
@@ -26,6 +27,8 @@ def read_data():
         stripecolor=(None, None),
     )
     dt.pack(fill=BOTH, expand=YES, padx=10, pady=10)
+
+
 # Window
 window = ttk.Window(themename='sandstone')
 window.geometry('1300x800+250+100')
