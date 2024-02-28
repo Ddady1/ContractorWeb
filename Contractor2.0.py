@@ -4,50 +4,55 @@ from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.constants import *
 import sqlite3
 
+def display_item(item):
+    print(item)
+
 def get_data():
     conn = sqlite3.connect('contractor.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * from customers')
     raw_data = cursor.fetchall()
-    #print(raw_data)
+    print(raw_data)
     col_names = list(map(lambda x: x[0], cursor.description))
     print(col_names)
-    read_data(col_names)
+    read_data(col_names, raw_data)
 
-def read_data(col_names):
+def read_data(col_names, raw_data):
     def printsel(a):
         citem = dt.get_rows(selected=True)
         print(citem[0].values)
-
+        display_item(citem[0].values)
     coldata = []
     for name in col_names:
-        col_dict = {f"'text: '{name}', stretch: FALSE'"}
+        col_dict = {'text': name, 'stretch': False}
         coldata.append(col_dict)
 
 
 
-    coldata = [
+    '''coldata = [
         {"text": "LicenseNumber", "stretch": False},
         {'text': "CompanyName"},
         {"text": "UserCount", "stretch": False},
         {'text': 'Age', 'stretch': False}
-    ]
+    ]'''
 
-    rowdata = [
+    '''rowdata = [
         ('A123', 'IzzyCo', 12),
         ('A136', 'Kimdee Inc.', 45),
         ('A158', 'Farmadding Co.', 36),
         ('B432', 'sdfsfds', 45, 34)
-    ]
+    ]'''
+    rowdata = raw_data
 
     dt = Tableview(
         master=data_frame,
         coldata=coldata,
         rowdata=rowdata,
         paginated=True,
+        pagesize=40,
         searchable=True,
         bootstyle=PRIMARY,
-        stripecolor=(None, None),
+        stripecolor=(None, None)
     )
     dt.pack(fill=BOTH, expand=YES, padx=10, pady=10)
     dt.view.bind('<ButtonRelease-1>', printsel)
