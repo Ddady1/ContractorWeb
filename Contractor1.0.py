@@ -4,16 +4,24 @@ from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.constants import *
 
 def read_data():
+    def printsel(a):
+        citem = dt.get_rows(selected=True)
+        print(citem[0].values)
+
+
+
     coldata = [
         {"text": "LicenseNumber", "stretch": False},
         {'text': "CompanyName"},
         {"text": "UserCount", "stretch": False},
+        {'text': 'Age', 'stretch': False}
     ]
 
     rowdata = [
         ('A123', 'IzzyCo', 12),
         ('A136', 'Kimdee Inc.', 45),
-        ('A158', 'Farmadding Co.', 36)
+        ('A158', 'Farmadding Co.', 36),
+        ('B432', 'sdfsfds', 45, 34)
     ]
 
     dt = Tableview(
@@ -26,6 +34,8 @@ def read_data():
         stripecolor=(None, None),
     )
     dt.pack(fill=BOTH, expand=YES, padx=10, pady=10)
+    dt.view.bind('<ButtonRelease-1>', printsel)
+
 # Window
 window = ttk.Window(themename='sandstone')
 window.title('Contractor 1.0')
@@ -96,6 +106,24 @@ edit_menu.add_command(label='Add Contract')
 edit_menu.add_command(label='Edit Contract')
 edit_menu.add_separator()
 edit_menu.add_command(label='Select All')
+
+
+# Create variables
+
+product_name = ttk.StringVar()
+manufacturer = ttk.StringVar()
+supplier_name = ttk.StringVar()
+start_date = ttk.StringVar()
+exp_date = ttk.StringVar()
+invoice_no = ttk.StringVar()
+qty = ttk.StringVar()
+invoice_date = ttk.StringVar()
+lic_no = ttk.StringVar()
+autho_no = ttk.StringVar()
+contact_Fname = ttk.StringVar()
+contact_Lname = ttk.StringVar()
+contact_email = ttk.StringVar()
+contact_mobile = ttk.StringVar()
 
 
 if __name__ == "__main__":
