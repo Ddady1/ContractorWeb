@@ -2,11 +2,27 @@ import tkinter as tk
 import ttkbootstrap as ttk
 from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.constants import *
+import sqlite3
 
-def read_data():
+def get_data():
+    conn = sqlite3.connect('contractor.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * from customers')
+    raw_data = cursor.fetchall()
+    #print(raw_data)
+    col_names = list(map(lambda x: x[0], cursor.description))
+    print(col_names)
+    read_data(col_names)
+
+def read_data(col_names):
     def printsel(a):
         citem = dt.get_rows(selected=True)
         print(citem[0].values)
+
+    coldata = []
+    for name in col_names:
+        col_dict = {f"'text: '{name}', stretch: FALSE'"}
+        coldata.append(col_dict)
 
 
 
@@ -35,6 +51,7 @@ def read_data():
     )
     dt.pack(fill=BOTH, expand=YES, padx=10, pady=10)
     dt.view.bind('<ButtonRelease-1>', printsel)
+
 
 # Window
 window = ttk.Window(themename='sandstone')
@@ -127,5 +144,6 @@ contact_mobile = ttk.StringVar()
 
 
 if __name__ == "__main__":
-    read_data()
+    get_data()
+    #read_data()
     window.mainloop()
