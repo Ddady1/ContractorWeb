@@ -12,8 +12,8 @@ window.geometry('400x600')
 
 
 
-# widgets
-'''label1 = ttk.Label(window, text = 'First label', background = 'red')
+'''# widgets
+label1 = ttk.Label(window, text = 'First label', background = 'red')
 label2 = ttk.Label(window, text = 'Label 2', background = 'blue')
 label3 = ttk.Label(window, text = 'Last of the labels', background = 'green')
 button = ttk.Button(window, text = 'Button')
@@ -23,13 +23,13 @@ label2.pack(side='left', expand=True, fill='both')
 label3.pack(side='top', expand=True, fill='both')
 button.pack(side='top', expand=True, fill='both')'''
 
-'''label1 = ttk.Label(window, text='Label 1', background='red')
+label1 = ttk.Label(window, text='Label 1', background='red')
 label2 = ttk.Label(window, text='Label 2', background='blue')
 label3 = ttk.Label(window, text='Label 3', background='green')
 label4 = ttk.Label(window, text='Label 4', background='yellow')
 button1 = ttk.Button(window, text='Button 1')
 button2 = ttk.Button(window, text='Button 2')
-entry = ttk.Entry(window)'''
+entry = ttk.Entry(window)
 
 label1 = ttk.Label(window, text='Lable 1', background='red')
 label2 = ttk.Label(window, text='Lable 2', background='blue')
@@ -39,13 +39,13 @@ button2 = ttk.Button(window, text='Raise label 2', command=lambda: label2.tkrais
 button3 = ttk.Button(window, text='Raise lebel 3', command=lambda: label3.tkraise())
 
 
-# Layout
+'''# Layout
 label1.place(x=50, y=100, width=200, height=150)
 label2.place(x=150, y=60, width=140, height=100)
 label3.place(x=80, y=60, width=160, height=300)
 button1.place(relx=0.6, rely=1, anchor='se')
 button2.place(relx=0.8, rely=1, anchor='se')
-button3.place(relx=1, rely=1, anchor='se')
+button3.place(relx=1, rely=1, anchor='se')'''
 
 
 '''# frame
@@ -59,8 +59,8 @@ frame_label.place(relx=0, rely=0, relwidth=1, relheight=0.5)
 frame_button.place(relx=0, rely=0.5, relwidth=1, relheight=0.5)'''
 
 
-# define a grid
-'''window.columnconfigure((0, 1, 2), weight=1, uniform='a')
+'''# define a grid
+window.columnconfigure((0, 1, 2), weight=1, uniform='a')
 #window.columnconfigure(1, weight=1)
 #window.columnconfigure(2, weight=1)
 window.columnconfigure(3, weight=2, uniform='a')
