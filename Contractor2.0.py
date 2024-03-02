@@ -62,7 +62,7 @@ def read_data(col_names, raw_data):
 window = ttk.Window(themename='sandstone')
 window.title('Contractor 1.0')
 window.geometry('1200x800+250+100')
-window.minsize(1200, 800)
+window.minsize(1200, 850)
 
 
 # Frames
@@ -74,8 +74,8 @@ item_frame = ttk.Frame(window, borderwidth=10, relief=SUNKEN)
 # Frame layout
 
 menu_frame.place(relx=0, rely=0, relwidth=1, relheight=0.05)
-data_frame.place(relx=0, rely=0.05, relwidth=0.5, relheight=0.95)
-item_frame.place(relx=0.5, rely=0.05, relwidth=0.5, relheight=0.95)
+data_frame.place(relx=0, rely=0.05, relwidth=0.45, relheight=0.95)
+item_frame.place(relx=0.45, rely=0.05, relwidth=0.55, relheight=0.95)
 
 
 
@@ -150,7 +150,7 @@ contact_mobile = ttk.StringVar()
 remarks = ttk.StringVar()
 
 # Item card label widgets
-license_details_lb = ttk.Label(item_frame, text='License Details', bootstyle=PRIMARY, font=('Helvetica', 18))
+license_details_lb = ttk.Label(item_frame, text='License Details', bootstyle=PRIMARY, font=('Helvetica', 18, 'underline'))
 product_name_lb = ttk.Label(item_frame, text='Product Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
 manufacturer_lb = ttk.Label(item_frame, text='Manufacturer:', bootstyle=PRIMARY, font=('Helvetica', 12))
 supplier_name_lb = ttk.Label(item_frame, text='Supplier Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
@@ -161,19 +161,38 @@ quantity_lb = ttk.Label(item_frame, text='Quantity:', bootstyle=PRIMARY, font=('
 invoice_date_lb = ttk.Label(item_frame, text='Invoice Date:', bootstyle=PRIMARY, font=('Helvetica', 12))
 license_no_lb = ttk.Label(item_frame, text='License No:', bootstyle=PRIMARY, font=('Helvetica', 12))
 authorization_no_lb = ttk.Label(item_frame, text='Authorization No:', bootstyle=PRIMARY, font=('Helvetica', 12))
-contact_details_lb = ttk.Label(item_frame, text='Contact Details', bootstyle=PRIMARY, font=('Helvetica', 18))
+contact_details_lb = ttk.Label(item_frame, text='Contact Details', bootstyle=PRIMARY, font=('Helvetica', 18, 'underline'))
 contact_fname_lb = ttk.Label(item_frame, text='First Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
 contact_lname_lb = ttk.Label(item_frame, text='Last Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
 contact_email_lb = ttk.Label(item_frame, text='Email:', bootstyle=PRIMARY, font=('Helvetica', 12))
 contact_mobile_lb = ttk.Label(item_frame, text='Mobile:', bootstyle=PRIMARY, font=('Helvetica', 12))
 remarks_lb = ttk.Label(item_frame, text='Remarks:', bootstyle=PRIMARY, font=('Helvetica', 12))
 
+
+# item frame entry widgets
+product_name_en = ttk.Entry(item_frame, textvariable=product_name)
+manufacturer_en = ttk.Entry(item_frame, textvariable=manufacturer)
+supplier_name_en = ttk.Entry(item_frame, textvariable=supplier_name)
+start_date_en = ttk.DateEntry(item_frame)
+exp_date_en = ttk.DateEntry(item_frame)
+invoice_no_en = ttk.Entry(item_frame, textvariable=invoice_no)
+invoice_date_en = ttk.DateEntry(item_frame)
+quantity_en = ttk.Entry(item_frame, textvariable=qty)
+license_no_en = ttk.Entry(item_frame, textvariable=lic_no)
+authorization_no_en = ttk.Entry(item_frame, textvariable=autho_no)
+contact_fname_en = ttk.Entry(item_frame, textvariable=contact_Fname)
+contact_lname_en = ttk.Entry(item_frame, textvariable=contact_Lname)
+contact_email_en = ttk.Entry(item_frame, textvariable=contact_email)
+contact_mobile_en = ttk.Entry(item_frame, textvariable=contact_mobile)
+remarks_en = ttk.Entry(item_frame, textvariable=remarks)
+
+
 # item frame layout
 
 item_frame.columnconfigure((0, 1, 2, 3), weight=1, uniform='a')
-item_frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), weight=1, uniform='a')
+item_frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), weight=1, uniform='a')
 
-# item frame widgets layout
+# item frame label widgets layout
 
 license_details_lb.grid(row=0, column=0, columnspan=5, sticky='n', padx=150)
 product_name_lb.grid(row=1, column=0, sticky='w')
@@ -188,6 +207,30 @@ license_no_lb.grid(row=5, column=0, sticky='w')
 quantity_lb.grid(row=5, column=2, sticky='w')
 contact_details_lb.grid(row=6, column=0, columnspan=5, sticky='n', padx=150)
 contact_fname_lb.grid(row=7, column=0, sticky='w')
+contact_lname_lb.grid(row=7, column=2, sticky='w')
+contact_email_lb.grid(row=8, column=0, sticky='w')
+contact_mobile_lb.grid(row=8, column=2, sticky='w')
+remarks_lb.grid(row=9, column=0, sticky='w')
+
+# item frame entry widgets layout
+product_name_en.grid(row=1, column=1, sticky='w')
+manufacturer_en.grid(row=1, column=3, sticky='w')
+supplier_name_en.grid(row=2, column=1, sticky='w')
+authorization_no_en.grid(row=2, column=3, sticky='w')
+start_date_en.grid(row=3, column=1, sticky='w')
+exp_date_en.grid(row=3, column=3, sticky='w')
+invoice_no_en.grid(row=4, column=1, sticky='w')
+invoice_date_en.grid(row=4, column=3, sticky='w')
+license_no_en.grid(row=5, column=1, sticky='w')
+quantity_en.grid(row=5, column=3, sticky='w')
+contact_fname_en.grid(row=7, column=1, sticky='w')
+contact_lname_en.grid(row=7, column=3, sticky='w')
+contact_email_en.grid(row=8, column=1, sticky='w')
+contact_mobile_en.grid(row=8, column=3, sticky='w')
+remarks_en.grid(row=9, column=1, columnspan=4, sticky='w')
+
+
+
 
 
 
