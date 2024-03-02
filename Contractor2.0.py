@@ -68,8 +68,8 @@ window.minsize(1200, 800)
 # Frames
 
 menu_frame = ttk.Frame(window)
-data_frame = ttk.Frame(window)
-item_frame = ttk.Frame(window)
+data_frame = ttk.Frame(window, borderwidth=10, relief=SUNKEN)
+item_frame = ttk.Frame(window, borderwidth=10, relief=SUNKEN)
 
 # Frame layout
 
@@ -149,7 +149,7 @@ contact_mobile = ttk.StringVar()
 remarks = ttk.StringVar()
 
 # Item card widgets
-license_details_lb = ttk.Label(item_frame, text='License Details')
+license_details_lb = ttk.Label(item_frame, text='License Details', foreground='blue')
 product_name_lb = ttk.Label(item_frame, text='Product Name:')
 manufacturer_lb = ttk.Label(item_frame, text='Manufacturer:')
 supplier_name_lb = ttk.Label(item_frame, text='Supplier Name:')
@@ -174,7 +174,7 @@ item_frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1
 
 # item frame widgets layout
 
-license_no_lb
+license_details_lb.grid(row=0, column=0, columnspan=5, sticky='nsew')
 
 
 
