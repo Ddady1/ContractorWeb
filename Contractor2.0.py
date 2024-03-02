@@ -178,6 +178,16 @@ item_frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), weight=1, uniform='a
 license_details_lb.grid(row=0, column=0, columnspan=5, sticky='n', padx=150)
 product_name_lb.grid(row=1, column=0, sticky='w')
 manufacturer_lb.grid(row=1, column=2, sticky='w')
+supplier_name_lb.grid(row=2, column=0, sticky='w')
+authorization_no_lb.grid(row=2, column=2, sticky='w')
+start_date_lb.grid(row=3, column=0, sticky='w')
+exp_date_lb.grid(row=3, column=2, sticky='w')
+invoice_no_lb.grid(row=4, column=0, sticky='w')
+invoice_date_lb.grid(row=4, column=2, sticky='w')
+license_no_lb.grid(row=5, column=0, sticky='w')
+quantity_lb.grid(row=5, column=2, sticky='w')
+contact_details_lb.grid(row=6, column=0, columnspan=5, sticky='n', padx=150)
+contact_fname_lb.grid(row=7, column=0, sticky='w')
 
 
 
