@@ -78,6 +78,7 @@ data_frame.place(relx=0, rely=0.05, relwidth=0.5, relheight=0.95)
 item_frame.place(relx=0.5, rely=0.05, relwidth=0.5, relheight=0.95)
 
 
+
 # Lebels for checkups
 menu_label = ttk.Label(menu_frame, text='MENU', background='blue').pack(side='top', expand=True, fill='both')
 #data_label = ttk.Label(data_frame, text='DATA', background='red').pack(side='left', expand=True, fill='both')
@@ -148,33 +149,35 @@ contact_email = ttk.StringVar()
 contact_mobile = ttk.StringVar()
 remarks = ttk.StringVar()
 
-# Item card widgets
-license_details_lb = ttk.Label(item_frame, text='License Details', foreground='blue')
-product_name_lb = ttk.Label(item_frame, text='Product Name:')
-manufacturer_lb = ttk.Label(item_frame, text='Manufacturer:')
-supplier_name_lb = ttk.Label(item_frame, text='Supplier Name:')
-start_date_lb = ttk.Label(item_frame, text='Start Date:')
-exp_date_lb = ttk.Label(item_frame, text='Expiration Date:')
-invoice_no_lb = ttk.Label(item_frame, text='Invoice No:')
-quantity_lb = ttk.Label(item_frame, text='Quantity:')
-invoice_date_lb = ttk.Label(item_frame, text='Invoice Date:')
-license_no_lb = ttk.Label(item_frame, text='License No:')
-authorization_no_lb = ttk.Label(item_frame, text='Authorization No:')
-contact_details_lb = ttk.Label(item_frame, text='Contact Details')
-contact_fname_lb = ttk.Label(item_frame, text='First Name:')
-contact_lname_lb = ttk.Label(item_frame, text='Last Name:')
-contact_email_lb = ttk.Label(item_frame, text='Email:')
-contact_mobile_lb = ttk.Label(item_frame, text='Mobile:')
-remarks_lb = ttk.Label(item_frame, text='Remarks:')
+# Item card label widgets
+license_details_lb = ttk.Label(item_frame, text='License Details', bootstyle=PRIMARY, font=('Helvetica', 18))
+product_name_lb = ttk.Label(item_frame, text='Product Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
+manufacturer_lb = ttk.Label(item_frame, text='Manufacturer:', bootstyle=PRIMARY, font=('Helvetica', 12))
+supplier_name_lb = ttk.Label(item_frame, text='Supplier Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
+start_date_lb = ttk.Label(item_frame, text='Start Date:', bootstyle=PRIMARY, font=('Helvetica', 12))
+exp_date_lb = ttk.Label(item_frame, text='Expiration Date:', bootstyle=PRIMARY, font=('Helvetica', 12))
+invoice_no_lb = ttk.Label(item_frame, text='Invoice No:', bootstyle=PRIMARY, font=('Helvetica', 12))
+quantity_lb = ttk.Label(item_frame, text='Quantity:', bootstyle=PRIMARY, font=('Helvetica', 12))
+invoice_date_lb = ttk.Label(item_frame, text='Invoice Date:', bootstyle=PRIMARY, font=('Helvetica', 12))
+license_no_lb = ttk.Label(item_frame, text='License No:', bootstyle=PRIMARY, font=('Helvetica', 12))
+authorization_no_lb = ttk.Label(item_frame, text='Authorization No:', bootstyle=PRIMARY, font=('Helvetica', 12))
+contact_details_lb = ttk.Label(item_frame, text='Contact Details', bootstyle=PRIMARY, font=('Helvetica', 18))
+contact_fname_lb = ttk.Label(item_frame, text='First Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
+contact_lname_lb = ttk.Label(item_frame, text='Last Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
+contact_email_lb = ttk.Label(item_frame, text='Email:', bootstyle=PRIMARY, font=('Helvetica', 12))
+contact_mobile_lb = ttk.Label(item_frame, text='Mobile:', bootstyle=PRIMARY, font=('Helvetica', 12))
+remarks_lb = ttk.Label(item_frame, text='Remarks:', bootstyle=PRIMARY, font=('Helvetica', 12))
 
 # item frame layout
 
-item_frame.columnconfigure((0, 1, 2 ,3 ,4 ,5), weight=1, uniform='a')
-item_frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), weight=1, uniform='a')
+item_frame.columnconfigure((0, 1, 2, 3), weight=1, uniform='a')
+item_frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), weight=1, uniform='a')
 
 # item frame widgets layout
 
-license_details_lb.grid(row=0, column=0, columnspan=5, sticky='nsew')
+license_details_lb.grid(row=0, column=0, columnspan=5, sticky='n', padx=150)
+product_name_lb.grid(row=1, column=0, sticky='w')
+manufacturer_lb.grid(row=1, column=2, sticky='w')
 
 
 
