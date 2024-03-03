@@ -80,7 +80,7 @@ item_frame.place(relx=0.45, rely=0.05, relwidth=0.55, relheight=0.95)
 
 
 # Lebels for checkups
-menu_label = ttk.Label(menu_frame, text='MENU', background='blue').pack(side='top', expand=True, fill='both')
+menu_label = ttk.Label(menu_frame, text='MENU', bootstyle=PRIMARY).pack(side='top', expand=True, fill='both')
 #data_label = ttk.Label(data_frame, text='DATA', background='red').pack(side='left', expand=True, fill='both')
 #item_label = ttk.Label(item_frame, text='ITEM', background='green').pack(side='left', expand=True, fill='both')
 
@@ -173,10 +173,10 @@ remarks_lb = ttk.Label(item_frame, text='Remarks:', bootstyle=PRIMARY, font=('He
 product_name_en = ttk.Entry(item_frame, textvariable=product_name)
 manufacturer_en = ttk.Entry(item_frame, textvariable=manufacturer)
 supplier_name_en = ttk.Entry(item_frame, textvariable=supplier_name)
-start_date_en = ttk.DateEntry(item_frame)
-exp_date_en = ttk.DateEntry(item_frame)
+start_date_en = ttk.DateEntry(item_frame, width=15)
+exp_date_en = ttk.DateEntry(item_frame, width=15)
 invoice_no_en = ttk.Entry(item_frame, textvariable=invoice_no)
-invoice_date_en = ttk.DateEntry(item_frame)
+invoice_date_en = ttk.DateEntry(item_frame, width=15)
 quantity_en = ttk.Entry(item_frame, textvariable=qty)
 license_no_en = ttk.Entry(item_frame, textvariable=lic_no)
 authorization_no_en = ttk.Entry(item_frame, textvariable=autho_no)
@@ -184,7 +184,14 @@ contact_fname_en = ttk.Entry(item_frame, textvariable=contact_Fname)
 contact_lname_en = ttk.Entry(item_frame, textvariable=contact_Lname)
 contact_email_en = ttk.Entry(item_frame, textvariable=contact_email)
 contact_mobile_en = ttk.Entry(item_frame, textvariable=contact_mobile)
-remarks_en = ttk.Entry(item_frame, textvariable=remarks)
+remarks_en = ttk.ScrolledText(item_frame, width=71)
+
+
+# item frame buttons widgets
+add_bt = ttk.Button(item_frame, text='Add item', width=15)
+edit_bt = ttk.Button(item_frame, text='Edit item', width=15)
+del_bt = ttk.Button(item_frame, text='Delete item', width=15)
+exit_bt = ttk.Button(item_frame, text='Exit', width=15, bootstyle=DANGER)
 
 
 # item frame layout
@@ -205,7 +212,7 @@ invoice_no_lb.grid(row=4, column=0, sticky='w')
 invoice_date_lb.grid(row=4, column=2, sticky='w')
 license_no_lb.grid(row=5, column=0, sticky='w')
 quantity_lb.grid(row=5, column=2, sticky='w')
-contact_details_lb.grid(row=6, column=0, columnspan=5, sticky='n', padx=150)
+contact_details_lb.grid(row=6, column=0, columnspan=5, sticky='s', padx=150)
 contact_fname_lb.grid(row=7, column=0, sticky='w')
 contact_lname_lb.grid(row=7, column=2, sticky='w')
 contact_email_lb.grid(row=8, column=0, sticky='w')
@@ -229,6 +236,12 @@ contact_email_en.grid(row=8, column=1, sticky='w')
 contact_mobile_en.grid(row=8, column=3, sticky='w')
 remarks_en.grid(row=9, column=1, columnspan=4, sticky='w')
 
+
+# item frame buttons widgets layout
+add_bt.grid(row=11, column=0, sticky='w')
+edit_bt.grid(row=11, column=1, sticky='w')
+del_bt.grid(row=11, column=2, sticky='w')
+exit_bt.grid(row=11, column=3, sticky='w')
 
 
 
