@@ -20,7 +20,7 @@ def get_data():
 def read_data(col_names, raw_data):
     def printsel(a):
         citem = dt.get_rows(selected=True)
-        print(citem[0].values)
+        #print(citem[0].values)
         display_item(citem[0].values)
     coldata = []
     for name in col_names:
@@ -125,10 +125,17 @@ file_menu.add_command(label='Exit', command=window.quit)
 
 edit_menu = ttk.Menu(menu_bar, tearoff=False)
 menu_bar.add_cascade(label='Edit', menu=edit_menu)
-edit_menu.add_command(label='Add Contract')
-edit_menu.add_command(label='Edit Contract')
+edit_menu.add_command(label='Add Item')
+edit_menu.add_command(label='Edit Item')
 edit_menu.add_separator()
 edit_menu.add_command(label='Select All')
+
+
+# Menubar Help
+
+help_menu = ttk.Menu(menu_bar, tearoff=False)
+menu_bar.add_cascade(label='Help', menu=help_menu)
+help_menu.add_command(label='About')
 
 
 # Create variables
@@ -173,10 +180,10 @@ remarks_lb = ttk.Label(item_frame, text='Remarks:', bootstyle=PRIMARY, font=('He
 product_name_en = ttk.Entry(item_frame, textvariable=product_name)
 manufacturer_en = ttk.Entry(item_frame, textvariable=manufacturer)
 supplier_name_en = ttk.Entry(item_frame, textvariable=supplier_name)
-start_date_en = ttk.DateEntry(item_frame, width=15)
-exp_date_en = ttk.DateEntry(item_frame, width=15)
+start_date_en = ttk.DateEntry(item_frame, width=15, dateformat='%d/%m/%y')
+exp_date_en = ttk.DateEntry(item_frame, width=15, dateformat='%d/%m/%y')
 invoice_no_en = ttk.Entry(item_frame, textvariable=invoice_no)
-invoice_date_en = ttk.DateEntry(item_frame, width=15)
+invoice_date_en = ttk.DateEntry(item_frame, width=15, dateformat='%d/%m/%y')
 quantity_en = ttk.Entry(item_frame, textvariable=qty)
 license_no_en = ttk.Entry(item_frame, textvariable=lic_no)
 authorization_no_en = ttk.Entry(item_frame, textvariable=autho_no)
