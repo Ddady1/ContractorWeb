@@ -4,8 +4,9 @@ from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.constants import *
 import sqlite3
 
-def display_item(item):
-    print(item)
+def display_item(items):
+    for item in items:
+        print(item.get())
 
 def get_data():
     conn = sqlite3.connect('contractor.db')
@@ -156,6 +157,7 @@ contact_email = ttk.StringVar()
 contact_mobile = ttk.StringVar()
 remarks = ttk.StringVar()
 
+
 # Item card label widgets
 license_details_lb = ttk.Label(item_frame, text='License Details', bootstyle=PRIMARY, font=('Helvetica', 18, 'underline'))
 product_name_lb = ttk.Label(item_frame, text='Product Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
@@ -181,9 +183,12 @@ product_name_en = ttk.Entry(item_frame, textvariable=product_name)
 manufacturer_en = ttk.Entry(item_frame, textvariable=manufacturer)
 supplier_name_en = ttk.Entry(item_frame, textvariable=supplier_name)
 start_date_en = ttk.DateEntry(item_frame, width=15, dateformat='%d/%m/%y')
+start_date = start_date_en.entry
 exp_date_en = ttk.DateEntry(item_frame, width=15, dateformat='%d/%m/%y')
+exp_date = exp_date_en.entry
 invoice_no_en = ttk.Entry(item_frame, textvariable=invoice_no)
 invoice_date_en = ttk.DateEntry(item_frame, width=15, dateformat='%d/%m/%y')
+invoice_date = invoice_date_en.entry
 quantity_en = ttk.Entry(item_frame, textvariable=qty)
 license_no_en = ttk.Entry(item_frame, textvariable=lic_no)
 authorization_no_en = ttk.Entry(item_frame, textvariable=autho_no)
@@ -193,9 +198,12 @@ contact_email_en = ttk.Entry(item_frame, textvariable=contact_email)
 contact_mobile_en = ttk.Entry(item_frame, textvariable=contact_mobile)
 remarks_en = ttk.ScrolledText(item_frame, width=71)
 
+entry_vars_list = [product_name, manufacturer, supplier_name, autho_no, start_date, exp_date, invoice_no, qty,
+                   invoice_date, lic_no, contact_Fname, contact_Lname, contact_email, contact_mobile, remarks]
+
 
 # item frame buttons widgets
-add_bt = ttk.Button(item_frame, text='Add item', width=15)
+add_bt = ttk.Button(item_frame, text='Add item', width=15, command=lambda: display_item(entry_vars_list))
 edit_bt = ttk.Button(item_frame, text='Edit item', width=15)
 del_bt = ttk.Button(item_frame, text='Delete item', width=15)
 exit_bt = ttk.Button(item_frame, text='Exit', width=15, bootstyle=DANGER)
