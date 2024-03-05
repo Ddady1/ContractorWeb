@@ -4,13 +4,17 @@ from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.constants import *
 import sqlite3
 
+def clear_fields(entries):
+    for entry in entries:
+        entry.delete(0, 'end')
+
 def display_item(item):
     print(item)
 
 def get_data():
     conn = sqlite3.connect('contractor.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT * from customers')
+    cursor.execute('SELECT * from Contracts')
     raw_data = cursor.fetchall()
     print(raw_data)
     col_names = list(map(lambda x: x[0], cursor.description))
@@ -192,63 +196,68 @@ contact_lname_en = ttk.Entry(item_frame, textvariable=contact_Lname)
 contact_email_en = ttk.Entry(item_frame, textvariable=contact_email)
 contact_mobile_en = ttk.Entry(item_frame, textvariable=contact_mobile)
 remarks_en = ttk.ScrolledText(item_frame, width=71)
+entry_list = [product_name_en, manufacturer_en, supplier_name_en, start_date_en, exp_date_en, invoice_no_en,
+              invoice_date_en, quantity_en, license_no_en, authorization_no_en, contact_fname_en, contact_lname_en,
+              contact_email_en, contact_mobile_en, remarks_en]
 
 
 # item frame buttons widgets
 add_bt = ttk.Button(item_frame, text='Add item', width=15)
 edit_bt = ttk.Button(item_frame, text='Edit item', width=15)
 del_bt = ttk.Button(item_frame, text='Delete item', width=15)
-exit_bt = ttk.Button(item_frame, text='Exit', width=15, bootstyle=DANGER)
+clear_bt = ttk.Button(item_frame, text='Clear fields', width=15, command=lambda: clear_fields(entry_list))
+exit_bt = ttk.Button(item_frame, text='Exit', width=15, bootstyle=DANGER, command=window.quit)
 
 
 # item frame layout
 
-item_frame.columnconfigure((0, 1, 2, 3), weight=1, uniform='a')
+item_frame.columnconfigure((0, 1, 2, 3, 4), weight=1, uniform='a')
 item_frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), weight=1, uniform='a')
 
 # item frame label widgets layout
 
 license_details_lb.grid(row=0, column=0, columnspan=5, sticky='n', padx=150)
 product_name_lb.grid(row=1, column=0, sticky='w')
-manufacturer_lb.grid(row=1, column=2, sticky='w')
+manufacturer_lb.grid(row=1, column=3, sticky='w')
 supplier_name_lb.grid(row=2, column=0, sticky='w')
-authorization_no_lb.grid(row=2, column=2, sticky='w')
+authorization_no_lb.grid(row=2, column=3, sticky='w')
 start_date_lb.grid(row=3, column=0, sticky='w')
-exp_date_lb.grid(row=3, column=2, sticky='w')
+exp_date_lb.grid(row=3, column=3, sticky='w')
 invoice_no_lb.grid(row=4, column=0, sticky='w')
-invoice_date_lb.grid(row=4, column=2, sticky='w')
+invoice_date_lb.grid(row=4, column=3, sticky='w')
 license_no_lb.grid(row=5, column=0, sticky='w')
-quantity_lb.grid(row=5, column=2, sticky='w')
+quantity_lb.grid(row=5, column=3, sticky='w')
 contact_details_lb.grid(row=6, column=0, columnspan=5, sticky='s', padx=150)
 contact_fname_lb.grid(row=7, column=0, sticky='w')
-contact_lname_lb.grid(row=7, column=2, sticky='w')
+contact_lname_lb.grid(row=7, column=3, sticky='w')
 contact_email_lb.grid(row=8, column=0, sticky='w')
-contact_mobile_lb.grid(row=8, column=2, sticky='w')
+contact_mobile_lb.grid(row=8, column=3, sticky='w')
 remarks_lb.grid(row=9, column=0, sticky='w')
 
 # item frame entry widgets layout
 product_name_en.grid(row=1, column=1, sticky='w')
-manufacturer_en.grid(row=1, column=3, sticky='w')
+manufacturer_en.grid(row=1, column=4, sticky='w')
 supplier_name_en.grid(row=2, column=1, sticky='w')
-authorization_no_en.grid(row=2, column=3, sticky='w')
+authorization_no_en.grid(row=2, column=4, sticky='w')
 start_date_en.grid(row=3, column=1, sticky='w')
-exp_date_en.grid(row=3, column=3, sticky='w')
+exp_date_en.grid(row=3, column=4, sticky='w')
 invoice_no_en.grid(row=4, column=1, sticky='w')
-invoice_date_en.grid(row=4, column=3, sticky='w')
+invoice_date_en.grid(row=4, column=4, sticky='w')
 license_no_en.grid(row=5, column=1, sticky='w')
-quantity_en.grid(row=5, column=3, sticky='w')
+quantity_en.grid(row=5, column=4, sticky='w')
 contact_fname_en.grid(row=7, column=1, sticky='w')
-contact_lname_en.grid(row=7, column=3, sticky='w')
+contact_lname_en.grid(row=7, column=4, sticky='w')
 contact_email_en.grid(row=8, column=1, sticky='w')
-contact_mobile_en.grid(row=8, column=3, sticky='w')
-remarks_en.grid(row=9, column=1, columnspan=4, sticky='w')
+contact_mobile_en.grid(row=8, column=4, sticky='w')
+remarks_en.grid(row=9, column=1, columnspan=5, sticky='w')
 
 
 # item frame buttons widgets layout
 add_bt.grid(row=11, column=0, sticky='w')
 edit_bt.grid(row=11, column=1, sticky='w')
 del_bt.grid(row=11, column=2, sticky='w')
-exit_bt.grid(row=11, column=3, sticky='w')
+clear_bt.grid(row=11, column=3, sticky='w')
+exit_bt.grid(row=11, column=4, sticky='w')
 
 
 
