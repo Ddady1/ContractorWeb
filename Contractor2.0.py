@@ -202,7 +202,7 @@ entry_list = [product_name_en, manufacturer_en, supplier_name_en, start_date_en,
               contact_email_en, contact_mobile_en, remarks_en]
 
 
-# item frame buttons widgets
+#  item frame buttons widgets
 add_bt = ttk.Button(item_frame, text='Add item', width=15)
 edit_bt = ttk.Button(item_frame, text='Edit item', width=15)
 del_bt = ttk.Button(item_frame, text='Delete item', width=15)
