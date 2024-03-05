@@ -6,6 +6,7 @@ import sqlite3
 
 def clear_fields(entries):
     for entry in entries:
+        print(entry.cget('text'))
         entry.delete(0, 'end')
 
 def display_item(item):
