@@ -21,7 +21,12 @@ def get_col_names():
 
 def add_item(item_values):
     for item in item_values:
-        print(item.get())
+        if isinstance(item, tk.scrolledtext.ScrolledText) or isinstance(item, ttk.widgets.DateEntry):
+            # now needs to make functions to get their data
+            #print(type(item))
+            pass
+        else:
+            print(item.get())
     col_names = get_col_names()
     print(col_names)
     '''try:
@@ -196,8 +201,7 @@ contact_Lname = ttk.StringVar()
 contact_email = ttk.StringVar()
 contact_mobile = ttk.StringVar()
 remarks = ttk.StringVar()
-vars_list = (product_name, manufacturer, supplier_name, autho_no, start_date, exp_date, invoice_no, invoice_date,
-             lic_no, qty, contact_Fname, contact_Lname, contact_email, contact_mobile, remarks)
+
 
 # Item card label widgets
 license_details_lb = ttk.Label(item_frame, text='License Details', bootstyle=PRIMARY, font=('Helvetica', 18, 'underline'))
@@ -238,6 +242,9 @@ remarks_en = ttk.ScrolledText(item_frame, width=71)
 entry_list = [product_name_en, manufacturer_en, supplier_name_en, authorization_no_en, start_date_en, exp_date_en, invoice_no_en,
               invoice_date_en, license_no_en, quantity_en, contact_fname_en, contact_lname_en,
               contact_email_en, contact_mobile_en, remarks_en]
+
+vars_list = (product_name, manufacturer, supplier_name, autho_no, start_date_en, exp_date_en, invoice_no, invoice_date_en,
+             lic_no, qty, contact_Fname, contact_Lname, contact_email, contact_mobile, remarks_en)
 
 
 #  item frame buttons widgets
