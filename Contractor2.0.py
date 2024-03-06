@@ -27,15 +27,18 @@ def add_item(item_values):
             pass
         else:
             print(item.get())
-    col_names = get_col_names()
+    col_names_list = get_col_names()
+    col_names_list.pop(0)
+    col_names = tuple(col_names_list)
+
+    #print(type(col_names))
     print(col_names)
-    '''try:
+    try:
         conn = sqlite3.connect('contractor.db')
         cursor = conn.cursor()
-        sqlite_insert_with_param = INSERT INTO Contracts
-                                    (Product Name, Manufacturer, Supplier Name, Start Date, Expiered, Invoice No, Quantity, Invoice Date,
-                                    License No, Authorization No, First Name, Last Name, Email, Mobile, Remarks)
-                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        sqlite_insert_with_param = f'''INSERT INTO Contracts
+                                    {col_names}
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
         cursor.execute(sqlite_insert_with_param, item_values)
         conn.commit()
         cursor.close()
@@ -43,7 +46,7 @@ def add_item(item_values):
         print("Failed to insert data into sqlite table", error)
     finally:
         if conn:
-            conn.close()'''
+            conn.close()
 
 def clear_fields(entries):
     for entry in entries:
