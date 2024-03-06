@@ -4,6 +4,42 @@ from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.constants import *
 import sqlite3
 
+def get_col_names():
+    try:
+        conn = sqlite3.connect('contractor.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT * from Contracts')
+        col_names = list(map(lambda x: x[0], cursor.description))
+        #print(col_names)
+        return col_names
+
+    except sqlite3.Error as error:
+        print("Failed to insert data into sqlite table", error)
+    finally:
+        if conn:
+            conn.close()
+
+def add_item(item_values):
+    for item in item_values:
+        print(item.get())
+    col_names = get_col_names()
+    print(col_names)
+    '''try:
+        conn = sqlite3.connect('contractor.db')
+        cursor = conn.cursor()
+        sqlite_insert_with_param = INSERT INTO Contracts
+                                    (Product Name, Manufacturer, Supplier Name, Start Date, Expiered, Invoice No, Quantity, Invoice Date,
+                                    License No, Authorization No, First Name, Last Name, Email, Mobile, Remarks)
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        cursor.execute(sqlite_insert_with_param, item_values)
+        conn.commit()
+        cursor.close()
+    except sqlite3.Error as error:
+        print("Failed to insert data into sqlite table", error)
+    finally:
+        if conn:
+            conn.close()'''
+
 def clear_fields(entries):
     for entry in entries:
         print(entry.cget('text'))
@@ -17,12 +53,12 @@ def get_data():
     cursor = conn.cursor()
     cursor.execute('SELECT * from Contracts')
     raw_data = cursor.fetchall()
-    print(raw_data)
+    #print(raw_data)
     col_names = list(map(lambda x: x[0], cursor.description))
-    print(col_names)
-    read_data(col_names, raw_data)
+    #print(col_names)
+    display_tableview(col_names, raw_data)
 
-def read_data(col_names, raw_data):
+def display_tableview(col_names, raw_data):
     def printsel(a):
         citem = dt.get_rows(selected=True)
         #print(citem[0].values)
@@ -160,19 +196,21 @@ contact_Lname = ttk.StringVar()
 contact_email = ttk.StringVar()
 contact_mobile = ttk.StringVar()
 remarks = ttk.StringVar()
+vars_list = (product_name, manufacturer, supplier_name, autho_no, start_date, exp_date, invoice_no, invoice_date,
+             lic_no, qty, contact_Fname, contact_Lname, contact_email, contact_mobile, remarks)
 
 # Item card label widgets
 license_details_lb = ttk.Label(item_frame, text='License Details', bootstyle=PRIMARY, font=('Helvetica', 18, 'underline'))
 product_name_lb = ttk.Label(item_frame, text='Product Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
 manufacturer_lb = ttk.Label(item_frame, text='Manufacturer:', bootstyle=PRIMARY, font=('Helvetica', 12))
 supplier_name_lb = ttk.Label(item_frame, text='Supplier Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
+authorization_no_lb = ttk.Label(item_frame, text='Authorization No:', bootstyle=PRIMARY, font=('Helvetica', 12))
 start_date_lb = ttk.Label(item_frame, text='Start Date:', bootstyle=PRIMARY, font=('Helvetica', 12))
 exp_date_lb = ttk.Label(item_frame, text='Expiration Date:', bootstyle=PRIMARY, font=('Helvetica', 12))
 invoice_no_lb = ttk.Label(item_frame, text='Invoice No:', bootstyle=PRIMARY, font=('Helvetica', 12))
-quantity_lb = ttk.Label(item_frame, text='Quantity:', bootstyle=PRIMARY, font=('Helvetica', 12))
 invoice_date_lb = ttk.Label(item_frame, text='Invoice Date:', bootstyle=PRIMARY, font=('Helvetica', 12))
 license_no_lb = ttk.Label(item_frame, text='License No:', bootstyle=PRIMARY, font=('Helvetica', 12))
-authorization_no_lb = ttk.Label(item_frame, text='Authorization No:', bootstyle=PRIMARY, font=('Helvetica', 12))
+quantity_lb = ttk.Label(item_frame, text='Quantity:', bootstyle=PRIMARY, font=('Helvetica', 12))
 contact_details_lb = ttk.Label(item_frame, text='Contact Details', bootstyle=PRIMARY, font=('Helvetica', 18, 'underline'))
 contact_fname_lb = ttk.Label(item_frame, text='First Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
 contact_lname_lb = ttk.Label(item_frame, text='Last Name:', bootstyle=PRIMARY, font=('Helvetica', 12))
@@ -185,25 +223,25 @@ remarks_lb = ttk.Label(item_frame, text='Remarks:', bootstyle=PRIMARY, font=('He
 product_name_en = ttk.Entry(item_frame, textvariable=product_name)
 manufacturer_en = ttk.Entry(item_frame, textvariable=manufacturer)
 supplier_name_en = ttk.Entry(item_frame, textvariable=supplier_name)
+authorization_no_en = ttk.Entry(item_frame, textvariable=autho_no)
 start_date_en = ttk.DateEntry(item_frame, width=15, dateformat='%d/%m/%y')
 exp_date_en = ttk.DateEntry(item_frame, width=15, dateformat='%d/%m/%y')
 invoice_no_en = ttk.Entry(item_frame, textvariable=invoice_no)
 invoice_date_en = ttk.DateEntry(item_frame, width=15, dateformat='%d/%m/%y')
-quantity_en = ttk.Entry(item_frame, textvariable=qty)
 license_no_en = ttk.Entry(item_frame, textvariable=lic_no)
-authorization_no_en = ttk.Entry(item_frame, textvariable=autho_no)
+quantity_en = ttk.Entry(item_frame, textvariable=qty)
 contact_fname_en = ttk.Entry(item_frame, textvariable=contact_Fname)
 contact_lname_en = ttk.Entry(item_frame, textvariable=contact_Lname)
 contact_email_en = ttk.Entry(item_frame, textvariable=contact_email)
 contact_mobile_en = ttk.Entry(item_frame, textvariable=contact_mobile)
 remarks_en = ttk.ScrolledText(item_frame, width=71)
-entry_list = [product_name_en, manufacturer_en, supplier_name_en, start_date_en, exp_date_en, invoice_no_en,
-              invoice_date_en, quantity_en, license_no_en, authorization_no_en, contact_fname_en, contact_lname_en,
+entry_list = [product_name_en, manufacturer_en, supplier_name_en, authorization_no_en, start_date_en, exp_date_en, invoice_no_en,
+              invoice_date_en, license_no_en, quantity_en, contact_fname_en, contact_lname_en,
               contact_email_en, contact_mobile_en, remarks_en]
 
 
 #  item frame buttons widgets
-add_bt = ttk.Button(item_frame, text='Add item', width=15)
+add_bt = ttk.Button(item_frame, text='Add item', width=15, command=lambda: add_item(vars_list))
 edit_bt = ttk.Button(item_frame, text='Edit item', width=15)
 del_bt = ttk.Button(item_frame, text='Delete item', width=15)
 clear_bt = ttk.Button(item_frame, text='Clear fields', width=15, command=lambda: clear_fields(entry_list))
