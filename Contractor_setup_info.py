@@ -13,8 +13,7 @@ def exit_app():
         root.destroy()
 
 
-root = ttkb.Window(themename='sandstone')
-#root = Toplevel()
+root = ttkb.Window(Toplevel, themename='sandstone')
 root.title('Contractor Wizard')
 root.geometry('600x450+450+250')
 root.resizable(False, False)

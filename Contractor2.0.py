@@ -2,7 +2,47 @@ import tkinter as tk
 import ttkbootstrap as ttk
 from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.constants import *
+from tkinter.filedialog import asksaveasfile
+from ttkbootstrap.dialogs import Messagebox
 import sqlite3
+
+def db_connect(db_file):
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        return conn
+    except sqlite3.Error as e:
+        print(e)
+        if conn:
+            conn.close()
+
+def db_create_msg():
+    msg = Messagebox.okcancel('In order for this app to work, a Database is needed.\n'
+                                'Press OK in order to choose where to save the DB file.\n'
+                              'You can set the DB later from the File menu','Setup Information', )
+    if msg == 'OK':
+
+        create_db()
+    else:
+        get_data()
+
+
+def exit_app():
+    result = Messagebox.show_question('Are you sure you want to cancel and exit the setup?', 'Cancel setup',
+                                      buttons=['No:primary', 'Yes:danger'])
+    if result == 'Yes':
+        window.destroy()
+
+def create_db():
+    path = asksaveasfile(title='Browse directory', filetypes=[('database file', '.db')], defaultextension='.db')
+    create_table(path.name)
+
+def create_table(db_file):
+    connection = db_connect(db_file)
+    try:
+        con = connection.cursor()
+
+    pass
 
 def get_col_names():
     try:
@@ -56,8 +96,8 @@ def clear_fields(entries):
 def display_item(item):
     print(item)
 
-def get_data():
-    conn = sqlite3.connect('contractor.db')
+def get_data(path):
+    conn = sqlite3.connect(path)
     cursor = conn.cursor()
     cursor.execute('SELECT * from Contracts')
     raw_data = cursor.fetchall()
@@ -314,6 +354,8 @@ exit_bt.grid(row=11, column=4, sticky='w')
 
 
 if __name__ == "__main__":
-    get_data()
+    db_create_msg()
+    #create_db()
+    #get_data()
     #read_data()
     window.mainloop()
