@@ -52,4 +52,7 @@ Subscription length - from dates
 Subscription time left - from dates
 
 
+https://www.sqlitetutorial.net/sqlite-python/creating-tables/
+
+
 
