@@ -38,11 +38,16 @@ def create_db():
     create_table(path.name)
 
 def create_table(db_file):
+    contractor_table = '''CREATE TABLE IF NOT EXISTS Contractors (
+                        Id integer PRIMARY KEY, Product_Name text NOT NULL, Manufacturer text NOT NULL,
+                         Supplier_Name text NOT NULL'''
     connection = db_connect(db_file)
-    try:
-        con = connection.cursor()
-
-    pass
+    if connection is not None:
+        try:
+            con = connection.cursor()
+            con.execute(contractor_table)
+        except sqlite3.Error as e:
+            print(e)
 
 def get_col_names():
     try:
