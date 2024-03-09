@@ -15,11 +15,21 @@ def is_json():
         with open(path, 'r') as f:
             data = json.load(f)
         if data['First run'] == '1':
-            print(True)
+            maybe_db()
         else:
             print('no data')
     else:
         print('NO')
+
+def maybe_db():
+    msg = Messagebox.yesno('It seems that you have already used this app before. If you know where the DB file located,'
+                           'please press "No" and load the existing DB file from the Menu->FIle->Open\n'
+                           'Otherwise, press "Yes" and create a new DB.', 'App Run')
+    if msg == 'Yes':
+        create_db()
+    else:
+        # create an OPEN existing DB function
+        pass
 
 def json_file():
     dir_path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
@@ -45,7 +55,7 @@ def db_connect(db_file):
 def db_create_msg():
     msg = Messagebox.okcancel('In order for this app to work, a Database is needed.\n'
                                 'Press OK in order to choose where to save the DB file.\n'
-                              'You can set the DB later from the File menu','Setup Information', )
+                              'You can set the DB later from the File menu', 'Setup Information')
     if msg == 'OK':
 
         create_db()
@@ -60,6 +70,7 @@ def exit_app():
         window.destroy()
 
 def create_db():
+
     path = asksaveasfile(title='Browse directory', filetypes=[('database file', '.db')], defaultextension='.db')
     create_table(path.name)
 
