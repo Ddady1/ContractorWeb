@@ -5,6 +5,32 @@ from ttkbootstrap.constants import *
 from tkinter.filedialog import asksaveasfile
 from ttkbootstrap.dialogs import Messagebox
 import sqlite3
+import os
+import json
+
+
+def is_json():
+    path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
+    if os.path.isfile(path):
+        with open(path, 'r') as f:
+            data = json.load(f)
+        if data['First run'] == '1':
+            print(True)
+        else:
+            print('no data')
+    else:
+        print('NO')
+
+def json_file():
+    dir_path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
+    file_name = 'config.json'
+    dict = {'First run': '1'}
+    js_object = json.dumps(dict, indent=4)
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+
+    with open(os.path.join(dir_path, file_name), 'w') as f:
+        f.write(js_object)
 
 def db_connect(db_file):
     conn = None
@@ -359,6 +385,7 @@ exit_bt.grid(row=11, column=4, sticky='w')
 
 
 if __name__ == "__main__":
+    is_json()
     db_create_msg()
     #create_db()
     #get_data()
