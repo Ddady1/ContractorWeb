@@ -17,9 +17,9 @@ def is_json():
         if data['First run'] == '1':
             maybe_db()
         else:
-            print('no data')
+            pass
     else:
-        print('NO')
+        db_create_msg()
 
 def maybe_db():
     msg = Messagebox.yesno('It seems that you have already used this app before. If you know where the DB file located,'
@@ -31,10 +31,10 @@ def maybe_db():
         # create an OPEN existing DB function
         pass
 
-def json_file():
-    dir_path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
+def json_file(db_path):
+    dir_path = '%s\\Contractor\\' % os.environ['APPDATA']
     file_name = 'config.json'
-    dict = {'First run': '1'}
+    dict = {'First run': '1', 'db_dir': db_path.name}
     js_object = json.dumps(dict, indent=4)
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
@@ -73,6 +73,7 @@ def create_db():
 
     path = asksaveasfile(title='Browse directory', filetypes=[('database file', '.db')], defaultextension='.db')
     create_table(path.name)
+    json_file(path)
 
 def create_table(db_file):
     contractor_table = '''CREATE TABLE IF NOT EXISTS Contractors (
