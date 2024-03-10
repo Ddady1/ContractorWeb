@@ -239,7 +239,7 @@ window.config(menu=menu_bar)
 
 file_menu = ttk.Menu(menu_bar, tearoff=False)
 menu_bar.add_cascade(label='File', menu=file_menu)
-file_menu.add_command(label='Open...')
+file_menu.add_command(label='Open...', command=lambda: get_data(extract_from_json()))
 file_menu.add_separator()
 file_menu.add_command(label='Print')
 file_menu.add_separator()
