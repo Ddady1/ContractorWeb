@@ -9,6 +9,9 @@ import os
 import json
 
 
+def extract_from_json():
+    pass
+
 def is_json():
     path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
     if os.path.isfile(path):
@@ -140,6 +143,7 @@ def display_item(item):
     print(item)
 
 def get_data(path):
+    extract_from_json()
     conn = sqlite3.connect(path)
     cursor = conn.cursor()
     cursor.execute('SELECT * from Contracts')
@@ -398,8 +402,8 @@ exit_bt.grid(row=11, column=4, sticky='w')
 
 if __name__ == "__main__":
     is_json()
-    db_create_msg()
+    #db_create_msg()
     #create_db()
-    #get_data()
+    get_data()
     #read_data()
     window.mainloop()
