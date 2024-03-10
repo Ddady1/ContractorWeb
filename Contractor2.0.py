@@ -87,7 +87,11 @@ def create_db():
 def create_table(db_file):
     contractor_table = '''CREATE TABLE IF NOT EXISTS Contracts (
                         Id integer PRIMARY KEY, "Product Name" text NOT NULL, Manufacturer text NOT NULL,
-                         "Supplier Name" text NOT NULL)'''
+                         "Supplier Name" text NOT NULL, "Authorization No" text, "Start Date" text NOT NULL,
+                         "Expiration Date" text NOT NULL, "Invoice No" text NOT NULL, "Invoice Date" text NOT NULL,
+                          "License No" text NOT NULL, Quantity text NOT NULL, "First Name" text NOT NULL,
+                          "Last Name" text NOT NULL, EMail text NOT NULL, "Mobile\Phone" text NOT NULL,
+                           Remarks text NOT NULL)'''
     connection = db_connect(db_file)
     if connection is not None:
         try:
