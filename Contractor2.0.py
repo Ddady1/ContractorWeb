@@ -10,8 +10,14 @@ import json
 
 
 def extract_from_json():
-    pass
-
+    path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
+    try:
+        with open(path, 'r') as f:
+            data = json.load(f)
+            db_path = data['db_dir']
+            return db_path
+    except json.JSONDecodeError as e:
+        print(e)
 def is_json():
     path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
     if os.path.isfile(path):
@@ -79,9 +85,9 @@ def create_db():
     json_file(path)
 
 def create_table(db_file):
-    contractor_table = '''CREATE TABLE IF NOT EXISTS Contractors (
-                        Id integer PRIMARY KEY, Product_Name text NOT NULL, Manufacturer text NOT NULL,
-                         Supplier_Name text NOT NULL'''
+    contractor_table = '''CREATE TABLE IF NOT EXISTS Contracts (
+                        Id integer PRIMARY KEY, "Product Name" text NOT NULL, Manufacturer text NOT NULL,
+                         "Supplier Name" text NOT NULL)'''
     connection = db_connect(db_file)
     if connection is not None:
         try:
@@ -143,7 +149,7 @@ def display_item(item):
     print(item)
 
 def get_data(path):
-    extract_from_json()
+    #extract_from_json()
     conn = sqlite3.connect(path)
     cursor = conn.cursor()
     cursor.execute('SELECT * from Contracts')
@@ -401,9 +407,10 @@ exit_bt.grid(row=11, column=4, sticky='w')
 
 
 if __name__ == "__main__":
+    #create_table(extract_from_json())
     is_json()
     #db_create_msg()
     #create_db()
-    get_data()
+    get_data(extract_from_json())
     #read_data()
     window.mainloop()
