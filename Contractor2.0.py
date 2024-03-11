@@ -2,22 +2,13 @@ import tkinter as tk
 import ttkbootstrap as ttk
 from ttkbootstrap.tableview import Tableview
 from ttkbootstrap.constants import *
-from tkinter.filedialog import asksaveasfile
+from tkinter.filedialog import asksaveasfile, askopenfile
 from ttkbootstrap.dialogs import Messagebox
 import sqlite3
 import os
 import json
 
 
-def extract_from_json():
-    path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
-    try:
-        with open(path, 'r') as f:
-            data = json.load(f)
-            db_path = data['db_dir']
-            return db_path
-    except json.JSONDecodeError as e:
-        print(e)
 def is_json():
     path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
     if os.path.isfile(path):
@@ -30,15 +21,28 @@ def is_json():
     else:
         db_create_msg()
 
+
 def maybe_db():
-    msg = Messagebox.yesno('It seems that you have already used this app before. If you know where the DB file located,'
-                           'please press "No" and load the existing DB file from the Menu->FIle->Open\n'
-                           'Otherwise, press "Yes" and create a new DB.', 'App Run')
-    if msg == 'Yes':
+    msg = Messagebox.okcancel('It seems that you have already used this app before. If you know where the DB file located,'
+                           'please press "Cancel" and load the existing DB file from the File->Open menu\n'
+                           'Otherwise, press "Ok" and create a new DB.', 'App Run')
+    if msg == 'Ok':
         create_db()
     else:
         # create an OPEN existing DB function
         pass
+
+
+def extract_from_json():
+    path = '%s\\Contractor\\config.json' % os.environ['APPDATA']
+    try:
+        with open(path, 'r') as f:
+            data = json.load(f)
+            db_path = data['db_dir']
+            return db_path
+    except json.JSONDecodeError as e:
+        print(e)
+
 
 def json_file(db_path):
     dir_path = '%s\\Contractor\\' % os.environ['APPDATA']
@@ -50,6 +54,8 @@ def json_file(db_path):
 
     with open(os.path.join(dir_path, file_name), 'w') as f:
         f.write(js_object)
+    get_data(extract_from_json())
+
 
 def db_connect(db_file):
     conn = None
@@ -61,6 +67,7 @@ def db_connect(db_file):
         if conn:
             conn.close()
 
+
 def db_create_msg():
     msg = Messagebox.okcancel('In order for this app to work, a Database is needed.\n'
                                 'Press OK in order to choose where to save the DB file.\n'
@@ -69,20 +76,16 @@ def db_create_msg():
 
         create_db()
     else:
-        get_data()
+        #get_data()
+        pass
 
-
-def exit_app():
-    result = Messagebox.show_question('Are you sure you want to cancel and exit the setup?', 'Cancel setup',
-                                      buttons=['No:primary', 'Yes:danger'])
-    if result == 'Yes':
-        window.destroy()
 
 def create_db():
 
     path = asksaveasfile(title='Browse directory', filetypes=[('database file', '.db')], defaultextension='.db')
     create_table(path.name)
     json_file(path)
+
 
 def create_table(db_file):
     contractor_table = '''CREATE TABLE IF NOT EXISTS Contracts (
@@ -100,6 +103,7 @@ def create_table(db_file):
         except sqlite3.Error as e:
             print(e)
 
+
 def get_col_names():
     try:
         conn = sqlite3.connect('contractor.db')
@@ -114,6 +118,7 @@ def get_col_names():
     finally:
         if conn:
             conn.close()
+
 
 def add_item(item_values):
     for item in item_values:
@@ -144,13 +149,16 @@ def add_item(item_values):
         if conn:
             conn.close()
 
+
 def clear_fields(entries):
     for entry in entries:
         print(entry.cget('text'))
         entry.delete(0, 'end')
 
+
 def display_item(item):
     print(item)
+
 
 def get_data(path):
     #extract_from_json()
@@ -163,11 +171,14 @@ def get_data(path):
     #print(col_names)
     display_tableview(col_names, raw_data)
 
+
 def display_tableview(col_names, raw_data):
     def printsel(a):
+
         citem = dt.get_rows(selected=True)
         #print(citem[0].values)
         display_item(citem[0].values)
+
     coldata = []
     for name in col_names:
         col_dict = {'text': name, 'stretch': False}
@@ -204,6 +215,22 @@ def display_tableview(col_names, raw_data):
     dt.view.bind('<ButtonRelease-1>', printsel)
 
 
+def exit_app():
+    result = Messagebox.show_question('Are you sure you want to cancel and exit the setup?', 'Cancel setup',
+                                      buttons=['No:primary', 'Yes:danger'])
+    if result == 'Yes':
+        window.destroy()
+
+def reset_tableview(data_frame):
+    for child in data_frame.winfo_children():
+        child.destroy()
+    open_existing_db()
+
+
+def open_existing_db():
+    path = askopenfile(title='Open Existing DB File', filetypes=[('database file', '.db')], defaultextension='.db')
+    get_data(path.name)
+
 # Window
 window = ttk.Window(themename='sandstone')
 window.title('Contractor 1.0')
@@ -239,7 +266,8 @@ window.config(menu=menu_bar)
 
 file_menu = ttk.Menu(menu_bar, tearoff=False)
 menu_bar.add_cascade(label='File', menu=file_menu)
-file_menu.add_command(label='Open...', command=lambda: get_data(extract_from_json()))
+file_menu.add_command(label='New DB', command=create_db)
+file_menu.add_command(label='Open...', command=lambda: reset_tableview(data_frame))
 file_menu.add_separator()
 file_menu.add_command(label='Print')
 file_menu.add_separator()
@@ -415,6 +443,6 @@ if __name__ == "__main__":
     is_json()
     #db_create_msg()
     #create_db()
-    get_data(extract_from_json())
+    #get_data(extract_from_json())
     #read_data()
     window.mainloop()
