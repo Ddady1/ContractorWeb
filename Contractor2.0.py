@@ -90,10 +90,10 @@ def create_db():
 def create_table(db_file):
     contractor_table = '''CREATE TABLE IF NOT EXISTS Contracts (
                         Id integer PRIMARY KEY, "Product Name" text NOT NULL, Manufacturer text NOT NULL,
-                         "Supplier Name" text NOT NULL, "Authorization No" text, "Start Date" text NOT NULL,
-                         "Expiration Date" text NOT NULL, "Invoice No" text NOT NULL, "Invoice Date" text NOT NULL,
+                         "Supplier Name" text NOT NULL, "Authorization No" text NOT NULL, "Start Date" timestamp NOT NULL,
+                         "Expiration Date" timestamp NOT NULL, "Invoice No" text NOT NULL, "Invoice Date" timestamp NOT NULL,
                           "License No" text NOT NULL, Quantity text NOT NULL, "First Name" text NOT NULL,
-                          "Last Name" text NOT NULL, EMail text NOT NULL, "Mobile\Phone" text NOT NULL,
+                          "Last Name" text NOT NULL, Email text NOT NULL, "Mobile" text NOT NULL,
                            Remarks text NOT NULL)'''
     connection = db_connect(db_file)
     if connection is not None:
@@ -105,8 +105,9 @@ def create_table(db_file):
 
 
 def get_col_names():
+    db_name = extract_from_json()
     try:
-        conn = sqlite3.connect('contractor.db')
+        conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
         cursor.execute('SELECT * from Contracts')
         col_names = list(map(lambda x: x[0], cursor.description))
@@ -120,13 +121,16 @@ def get_col_names():
             conn.close()
 
 
-def add_item(item_values):
-    for item in item_values:
-        if isinstance(item, tk.scrolledtext.ScrolledText) or isinstance(item, ttk.widgets.DateEntry):
-            # now needs to make functions to get their data
-            #print(type(item))
-            pass
+def add_item(item_vars):
+    item_values = []
+    for item in item_vars:
+        if isinstance(item, ttk.widgets.DateEntry):
+            item_values.append(item.entry.get())
+            print(item.entry.get())
+        elif isinstance(item, tk.scrolledtext.ScrolledText):
+            item_values.append(item.get('1.0', 'end'))
         else:
+            item_values.append(item.get())
             print(item.get())
     col_names_list = get_col_names()
     col_names_list.pop(0)
@@ -134,8 +138,10 @@ def add_item(item_values):
 
     #print(type(col_names))
     print(col_names)
+    print(item_values)
+    db_name = extract_from_json()
     try:
-        conn = sqlite3.connect('contractor.db')
+        conn = sqlite3.connect(db_name)
         cursor = conn.cursor()
         sqlite_insert_with_param = f'''INSERT INTO Contracts
                                     {col_names}
@@ -148,6 +154,8 @@ def add_item(item_values):
     finally:
         if conn:
             conn.close()
+
+    reset_tableview(data_frame, False)
 
 
 def clear_fields(entries):
@@ -224,10 +232,13 @@ def exit_app():
     if result == 'Yes':
         window.destroy()
 
-def reset_tableview(data_frame):
+def reset_tableview(data_frame, flag):
     for child in data_frame.winfo_children():
         child.destroy()
-    open_existing_db()
+    if flag:
+        open_existing_db()
+    else:
+        get_data(extract_from_json())
 
 
 def open_existing_db():
@@ -270,7 +281,7 @@ window.config(menu=menu_bar)
 file_menu = ttk.Menu(menu_bar, tearoff=False)
 menu_bar.add_cascade(label='File', menu=file_menu)
 file_menu.add_command(label='New DB', command=create_db)
-file_menu.add_command(label='Open...', command=lambda: reset_tableview(data_frame))
+file_menu.add_command(label='Open...', command=lambda: reset_tableview(data_frame, True))
 file_menu.add_separator()
 file_menu.add_command(label='Print')
 file_menu.add_separator()
