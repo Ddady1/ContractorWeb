@@ -176,8 +176,11 @@ def display_tableview(col_names, raw_data):
     def printsel(a):
 
         citem = dt.get_rows(selected=True)
-        #print(citem[0].values)
-        display_item(citem[0].values)
+        if citem == []:
+            pass
+            #print(citem[0].values)
+        else:
+            display_item(citem[0].values)
 
     coldata = []
     for name in col_names:
