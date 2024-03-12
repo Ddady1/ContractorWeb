@@ -160,8 +160,14 @@ def add_item(item_vars):
 
 def clear_fields(entries):
     for entry in entries:
-        print(entry.cget('text'))
-        entry.delete(0, 'end')
+        print(entry)
+        if isinstance(entry, ttk.widgets.DateEntry):
+            entry.entry.insert(0, '1/1/25')
+        elif isinstance(entry, tk.scrolledtext.ScrolledText):
+            entry.delete('1.0', 'end')
+        else:
+        #print(entry.cget('text'))
+            entry.delete(0, 'end')
 
 
 def display_item(item):
@@ -381,6 +387,7 @@ contact_lname_en = ttk.Entry(item_frame, textvariable=contact_Lname)
 contact_email_en = ttk.Entry(item_frame, textvariable=contact_email)
 contact_mobile_en = ttk.Entry(item_frame, textvariable=contact_mobile)
 remarks_en = ttk.ScrolledText(item_frame, width=71)
+
 entry_list = [product_name_en, manufacturer_en, supplier_name_en, authorization_no_en, start_date_en, exp_date_en, invoice_no_en,
               invoice_date_en, license_no_en, quantity_en, contact_fname_en, contact_lname_en,
               contact_email_en, contact_mobile_en, remarks_en]
