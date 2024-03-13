@@ -175,7 +175,23 @@ def clear_fields(entries):
 
 
 def display_item(item):
-    print(item)
+    item.pop(0)
+    i = 0
+    for field in item:
+        if isinstance(entry_list[i], ttk.widgets.DateEntry):
+            entry_list[i].entry.delete('0', 'end')
+            entry_list[i].entry.insert('0', field)
+            i += 1
+        elif isinstance(entry_list[i], tk.scrolledtext.ScrolledText):
+            entry_list[i].delete('1.0', 'end')
+            entry_list[i].insert('1.0', field)
+            i += 1
+        else:
+            entry_list[i].delete('0', 'end')
+            entry_list[i].insert('0', field)
+            i += 1
+
+    #print(item)
 
 
 def get_data(path):
