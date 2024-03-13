@@ -7,6 +7,7 @@ from ttkbootstrap.dialogs import Messagebox
 import sqlite3
 import os
 import json
+import datetime
 
 
 def is_json():
@@ -162,7 +163,10 @@ def clear_fields(entries):
     for entry in entries:
         print(entry)
         if isinstance(entry, ttk.widgets.DateEntry):
-            entry.entry.insert(0, '1/1/25')
+            entry.entry.delete('0', 'end')
+            today = datetime.datetime.today()
+            todays = today.strftime('%d/%m/%y')
+            entry.entry.insert(0, todays)
         elif isinstance(entry, tk.scrolledtext.ScrolledText):
             entry.delete('1.0', 'end')
         else:
