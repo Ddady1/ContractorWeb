@@ -159,6 +159,43 @@ def add_item(item_vars):
     reset_tableview(data_frame, False)
 
 
+def edit_item(item_vars):
+    item_values = []
+    for item in item_vars:
+        if isinstance(item, ttk.widgets.DateEntry):
+            item_values.append(item.entry.get())
+            print(item.entry.get())
+        elif isinstance(item, tk.scrolledtext.ScrolledText):
+            item_values.append(item.get('1.0', 'end'))
+        else:
+            item_values.append(item.get())
+            print(item.get())
+    col_names_list = get_col_names()
+    col_names_list.pop(0)
+    col_names = tuple(col_names_list)
+
+    # print(type(col_names))
+    print(col_names)
+    print(item_values)
+    db_name = extract_from_json()
+    try:
+        conn = sqlite3.connect(db_name)
+        cursor = conn.cursor()
+        sqlite_insert_with_param = f'''INSERT INTO Contracts
+                                        {col_names}
+                                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);'''
+        cursor.execute(sqlite_insert_with_param, item_values)
+        conn.commit()
+        cursor.close()
+    except sqlite3.Error as error:
+        print("Failed to insert data into sqlite table", error)
+    finally:
+        if conn:
+            conn.close()
+
+    reset_tableview(data_frame, False)
+
+
 def clear_fields(entries):
     for entry in entries:
         print(entry)
@@ -210,7 +247,7 @@ def display_tableview(col_names, raw_data):
     def printsel(a):
 
         citem = dt.get_rows(selected=True)
-        if citem == []:
+        if not citem[0]:
             pass
             #print(citem[0].values)
         else:
@@ -250,6 +287,7 @@ def display_tableview(col_names, raw_data):
     )
     dt.pack(fill=BOTH, expand=YES, padx=10, pady=10)
     dt.view.bind('<ButtonRelease-1>', printsel)
+    #dt.view.bind('<<TreeviewSelect>>', printsel)
 
 
 def exit_app():
@@ -418,7 +456,7 @@ vars_list = (product_name, manufacturer, supplier_name, autho_no, start_date_en,
 
 #  item frame buttons widgets
 add_bt = ttk.Button(item_frame, text='Add item', width=15, command=lambda: add_item(vars_list))
-edit_bt = ttk.Button(item_frame, text='Edit item', width=15)
+edit_bt = ttk.Button(item_frame, text='Edit item', width=15, command=lambda: edit_item(vars_list))
 del_bt = ttk.Button(item_frame, text='Delete item', width=15)
 clear_bt = ttk.Button(item_frame, text='Clear fields', width=15, command=lambda: clear_fields(entry_list))
 exit_bt = ttk.Button(item_frame, text='Exit', width=15, bootstyle=DANGER, command=window.quit)
